@@ -1,0 +1,17 @@
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+}
+
+android {
+    namespace = "com.fittrack.app"
+    compileSdk = 35
+    defaultConfig {
+        applicationId = "com.fittrack.app"
+        minSdk = 23
+        targetSdk = 35
+        versionCode = 1
+        versionName = "1.0"
+    }
+}
+\ndependencies { implementation("androidx.core:core-ktx:1.15.0") }\n

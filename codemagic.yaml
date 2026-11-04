@@ -1,0 +1,22 @@
+workflows:
+  fittrack-android:
+    name: FITTRACK Android APK
+    max_build_duration: 60
+    instance_type: linux_x2
+    environment:
+      java: 17
+    scripts:
+      - name: Install Gradle 8.9
+        script: |
+          set -euo pipefail
+          if [ ! -x "$HOME/gradle-8.9/bin/gradle" ]; then
+            curl --fail --location --retry 3 https://services.gradle.org/distributions/gradle-8.9-bin.zip --output "$HOME/gradle-8.9-bin.zip"
+            unzip -q "$HOME/gradle-8.9-bin.zip" -d "$HOME"
+          fi
+          "$HOME/gradle-8.9/bin/gradle" --version
+      - name: Build installable debug APK
+        script: |
+          set -euo pipefail
+          "$HOME/gradle-8.9/bin/gradle" --no-daemon --stacktrace assembleDebug
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
